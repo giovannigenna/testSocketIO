@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title> test socket io</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var socket = io();
+
+        socket.on('gameTime', function (msg) {
+            $('#time').html(msg);
+        });
+
+        socket.on('players', function (msg) {
+            console.log(msg);
+            $('#players').html(msg);
+        });
+
+        $(document).ready(function () {
+            $('#login').on('click', function () {
+                alert("invio: " +$('#name').val());
+                socket.emit('login', $('#name').val());
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h2>Hello World</h2>
+    <div id="players"></div>
+    <div id="time"></div>
+    <input type="text" name="name" value="" id="name" />
+    <button id="login"> login</button>
+    <button onclick="socket.emit('start', 'ciao');"> click me</button>
+</body>
+
+</html>
